@@ -1,0 +1,59 @@
+
+# Default profile: base settings that all other profiles
+# will inherit from.
+
+default:
+  context:
+    class:                            'FeatureContext'
+  paths:
+    bootstrap:                        'features/bootstrap'
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url:                       'http://0.0.0.0:1234'
+      selenium2:                      ~
+      goutte:
+          guzzle_parameters:
+            ssl.certificate_authority: false
+
+
+# Selenium Profile: Run all tests using the default selenium 
+# server so that we can see the tests actually run before us.
+# There runs are more likely to be performed manually on test/dev
+# machines.
+
+desktop:
+  extensions:
+    Behat\MinkExtension\Extension:
+      default_session:                selenium2
+      selenium2:                      ~
+  formatter:
+    name:                             pretty
+    parameters:
+      decorated:                      true
+      verbose:                        false
+      time:                           true
+      language:                       en
+      output_path:                    null
+      multiline_arguments:            true
+
+
+
+# Selenium Profile: Run all tests using the default selenium 
+# server so that we can see the tests actually run before us.
+# There runs are more likely to be performed manually on test/dev
+# machines.
+
+ci:
+  extensions:
+    Behat\MinkExtension\Extension:
+      default_session:                selenium2
+      selenium2:
+        wd_host:                      "http://localhost:8643/wd/hub"
+  formatter:
+    name:                             pretty,junit,html
+    parameters:
+      output_path:                    null,junit,behat_report.html
+
+
+
+

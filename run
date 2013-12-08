@@ -1,0 +1,64 @@
+#! /bin/bash
+#
+# Small wrapper script to run the behat & mink tests
+# using either phantomjs or selenium - for convenience.
+# 
+# 
+
+
+usage()
+{
+cat << EOF
+usage: $0 options
+
+$0 ci|desktop
+
+- ci 		run tests using the headless browser emulator (phantomjs)
+- desktop	run tests using the in-browser emulator (selenium)
+
+OPTIONS:
+   -h      Show this message
+EOF
+}
+
+MODE=$1
+while getopts “ht:r:p:v” OPTION
+do
+     case $OPTION in
+         h)
+             usage
+             exit 1
+             ;;
+     esac
+done
+
+if [[ -z $MODE ]]
+then
+     usage
+     exit 1
+fi
+
+# TODO: Add check to see if the base URL is available 
+
+if [[ "ci" == $MODE ]]
+then
+	./Drivers/phantomjs/bin/phantomjs --webdriver=8643 --ignore-ssl-errors=true --debug=false >/dev/null &
+    PID=$!
+    sleep 5
+
+    bin/behat --profile ci
+
+    kill $PID
+fi
+
+
+if [[ "desktop" == $MODE ]]
+then
+    java -jar Drivers/selenium/selenium-server-standalone-2.37.0.jar  >/dev/null &
+    PID=$!
+    sleep 8
+
+    bin/behat --profile desktop
+
+    kill $PID    
+fi

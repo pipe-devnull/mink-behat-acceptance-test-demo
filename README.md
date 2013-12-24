@@ -8,7 +8,7 @@ Ready for hooking up to Continuous Integration (CI) this repo includes a wrapper
 
 You will need to follow the installation instructions in the next section to ensure you get the right web drivers for your environment. 
 
-For more more background info please see my accompanying blog post <a href='http://pipe-devnull.com/2013/11/10/mink-behat-automated-browser-testing-in-plain-english.html'>Automated Browser Acceptance Testing with Behat & Mink</a>
+For more more background info please see my accompanying blog post <a href='http://pipe-devnull.com/2013/12/17/mink-behat-automated-browser-testing-in-plain-english.html'>Automated Browser Acceptance Testing with Behat & Mink</a>
 
 ## Installation
 
